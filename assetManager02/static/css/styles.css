@@ -1,0 +1,137 @@
+/* Solarized Dark Theme Colors */
+:root {
+    --base03: #002b36;
+    --base02: #073642;
+    --base01: #586e75;
+    --base00: #657b83;
+    --base0: #839496;
+    --base1: #93a1a1;
+    --base2: #eee8d5;
+    --base3: #fdf6e3;
+    --yellow: #b58900;
+    --orange: #cb4b16;
+    --red: #dc322f;
+    --magenta: #d33682;
+    --violet: #6c71c4;
+    --blue: #268bd2;
+    --cyan: #2aa198;
+    --green: #859900;
+}
+
+body {
+    padding: 20px;
+    background-color: var(--base03);
+    color: var(--base0);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto; /* Added 20px margin on all sides */
+    background-color: var(--base02);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+    background-color: var(--base02);
+    border-radius: 0 0 10px 10px; /* Curved edges at the bottom */
+    margin-bottom: 20px; /* Space between navbar and container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .navbar-brand {
+    color: var(--yellow);
+}
+
+.navbar .nav-link {
+    color: var(--base1);
+}
+
+.navbar .nav-link:hover {
+    color: var(--base3);
+}
+
+h2 {
+    margin-top: 50px; /* Adjust as needed */
+}
+
+.space-card {
+    margin-bottom: 20px; /* Adjust as needed */
+    background-color: var(--base02);
+    border: 1px solid var(--base01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.card-title a {
+    color: var(--yellow);
+    text-decoration: none;
+}
+
+.card-title a:hover,
+.card-text a:hover {
+    text-decoration: underline;
+}
+
+.card-text {
+    color: var(--base0);
+}
+
+form {
+    margin-top: 20px; /* Adjust as needed */
+}
+
+.form-control {
+    background-color: var(--base02);
+    color: var(--base1);
+    border: 1px solid var(--base01);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.form-control:focus {
+    background-color: var(--base03);
+    color: var(--base0);
+    border-color: var(--blue);
+    box-shadow: 0 0 0 0.25rem rgba(38, 139, 210, 0.25);
+}
+
+.btn {
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background-color: var(--blue);
+    border-color: var(--blue);
+    color: var(--base3);
+}
+
+.btn-primary:hover {
+    background-color: #1e6bd6;
+    border-color: #1e6bd6;
+}
+
+.btn-danger {
+    background-color: var(--red);
+    border-color: var(--red);
+    color: var(--base3);
+}
+
+.btn-danger:hover {
+    background-color: #dc322f;
+    border-color: #dc322f;
+}
+
+.btn-join {
+    background-color: var(--green);
+    border: none;
+    color: var(--base3);
+}
+
+.btn-join:hover {
+    background-color: #728500;
+}

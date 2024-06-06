@@ -1,0 +1,3 @@
+"""
+Package for assetManager02.
+"""

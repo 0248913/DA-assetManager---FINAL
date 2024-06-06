@@ -1,0 +1,19 @@
+{% include './header.html' %}
+
+
+<body>
+    <h1>Settings</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form group">
+            <label for="id_name">Name</label>
+            <input type="text" class="form-control" id="id_name" name="name" />
+        </div>
+        <div class="btn-button">
+            <button type="submit" class="btn btn-primary">Create Space</button>
+        </div>
+    </form>
+
+</body>
+{% include './footer.html' %}

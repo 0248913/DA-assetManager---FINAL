@@ -1,0 +1,35 @@
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+.card-title a,
+.card-text a {
+    color: #444;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.card-title a:hover,
+.card-text a:hover {
+    text-decoration: underline;
+}
+
+.navbar {
+    background-color: #000 !important;
+}
+
+.btn {
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #000;
+    border-color: #000;
+    margin: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #555;
+    border-color: #555;
+}

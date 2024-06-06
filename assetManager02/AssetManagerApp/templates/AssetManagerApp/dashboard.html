@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #fff;
+            color: #000;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        .btn-primary {
+            background-color: #000;
+            border-color: #000;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: #555;
+            border-color: #555;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .tick {
+            color: black;
+        }
+        .cross {
+            color: black;
+        }
+        .navbar {
+            background-color: #000 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Asset Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <button type="button" class="btn btn-primary">Log Out</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'homepage' %}">
+                            <button type="button" class="btn btn-primary">home</button>
+                            </a>
+                            </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container">
+    <h1>{{ space.name }}</h1>
+    <p><strong>Space Code:</strong> {{ space.code }}</p>
+
+    <!-- Tabs Navigation -->
+    <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="logs-tab" data-bs-toggle="tab" href="#logs" role="tab" aria-controls="logs"
+               aria-selected="true">Your Logs</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="members-tab" data-bs-toggle="tab" href="#members" role="tab"
+               aria-controls="members" aria-selected="false">Space Members</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="todos-tab" data-bs-toggle="tab" href="#todos" role="tab"
+               aria-controls="todos" aria-selected="false">To-Do List</a>
+        </li>
+    </ul>
+
+    <!-- Tabs Content -->
+    <div class="tab-content" id="dashboardTabsContent">
+        <div class="tab-pane fade show active" id="logs" role="tabpanel" aria-labelledby="logs-tab">
+            <h2 class="mt-4">Add New Log</h2>
+            <a href="{% url 'newLog' space_id=space.id %}" class="btn btn-primary mb-4">+</a>
+
+            <h2>Your Logs</h2>
+            {% if user_logs %}
+                {% for log in user_logs %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ log.title }}</h3>
+                            <p class="card-text"><strong>Information:</strong> {{ log.information }}</p>
+                            <p class="card-text"><strong>Created by:</strong> {{ log.user.username }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p><strong>In Use:</strong> {% if log.in_use %}<span class="tick">&#10004;</span>{% else %}<span class="cross">&#10006;</span>{% endif %}</p>
+                                <p><strong>Last Changed By:</strong> {{ log.last_changed_by }}</p>
+                                <p><strong>Last Changed Date:</strong> {{ log.last_changed_date }}</p>
+                                <p><strong>Return By:</strong> {% if log.return_by %}{{ log.return_by|date:"Y-m-d H:i" }}{% else %}Not specified{% endif %}</p>
+                            </div>
+                            
+                                <a href="{% url 'editLog' log.id space.id %}" class="btn btn-primary">Edit</a>
+                                <form method="post" action="{% url 'deleteLog' log.id space.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                </form>
+                          
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No logs available.</p>
+            {% endif %}
+        </div>
+        <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
+            <h2 class="mt-4">Space Members</h2>
+            {% if space_members %}
+                <ul class="list-group">
+                    {% for member in space_members %}
+                        <li class="list-group-item">{{ member.username }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No members in this space.</p>
+            {% endif %}
+        </div>
+        <div class="tab-pane fade" id="todos" role="tabpanel" aria-labelledby="todos-tab">
+            <h2 class="mt-4">To-Do List</h2>
+            {% if todo_logs %}
+                <ul class="list-group">
+                    {% for log in todo_logs %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ log.title }} - Return By: {{ log.return_by|date:"Y-m-d H:i" }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No to-do items available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
